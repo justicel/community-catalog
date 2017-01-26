@@ -1,7 +1,7 @@
 version: '2'
 services:
   elasticsearch-masters:
-    image: justicel/rancher-elasticsearch-conf:latest 
+    image: justicel/rancher-elasticsearch-conf:v0.5.0
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
@@ -33,7 +33,7 @@ services:
       - /opt/rancher/bin/run.sh
 
   elasticsearch-datanodes:
-    image: justicel/rancher-elasticsearch-conf:latest
+    image: justicel/rancher-elasticsearch-conf:v0.5.0
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
@@ -68,7 +68,7 @@ services:
     network_mode: container:elasticsearch-datanodes
 
   elasticsearch-clients:
-    image: justicel/rancher-elasticsearch-conf:latest
+    image: justicel/rancher-elasticsearch-conf:v0.5.0
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
