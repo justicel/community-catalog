@@ -23,8 +23,8 @@ services:
   elasticsearch-base-master:
     ulimits:
       memlock:
-        soft: unlimited
-        hard: unlimited
+        soft: 9223372036854775807
+        hard: 9223372036854775807
     privileged: true
     cap_add:
       - IPC_LOCK
@@ -68,8 +68,8 @@ services:
     privileged: true
     ulimits:
       memlock:
-        soft: unlimited
-        hard: unlimited
+        soft: 9223372036854775807
+        hard: 9223372036854775807
     cap_add:
       - IPC_LOCK
     environment:
@@ -111,8 +111,8 @@ services:
     privileged: true
     ulimits:
       memlock:
-        soft: unlimited
-        hard: unlimited
+        soft: 9223372036854775807
+        hard: 9223372036854775807
     cap_add:
       - IPC_LOCK
     environment:
