@@ -13,7 +13,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - ${cluster_name}_masters_data:/usr/share/elasticsearch/data
+      - es_masters_data:/usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -46,7 +46,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - ${cluster_name}_datanodes_data:/usr/share/elasticsearch/data
+      - es_datanodes_data:/usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -80,7 +80,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - ${cluster_name}_clients_data:/usr/share/elasticsearch/data
+      - es_clients_data:/usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -109,19 +109,19 @@ services:
     links:
       - elasticsearch-clients:es-clients
 volumes:
-  ${cluster_name}_datanodes_data:
+  es_datanodes_data:
     driver: rancher-ebs
     per_container: true
     driver_opts:
       size: ${storage_size}
       volumeType: gp2
-  ${cluster_name}_masters_data:
+  es_masters_data:
     driver: rancher-ebs
     per_container: true
     driver_opts:
       size: ${storage_size}
       volumeType: gp2
-  ${cluster_name}_clients_data:
+  es_clients_data:
     driver: rancher-ebs
     per_container: true
     driver_opts:
