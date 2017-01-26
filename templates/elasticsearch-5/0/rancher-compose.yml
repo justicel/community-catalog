@@ -39,6 +39,12 @@
       type: "int"
       default: 1
       required: true
+    - variable: "minimum_master_nodes"
+      label: "ES Min Master Nodes"
+      description: "Set the value of this to usually masters - 1"
+      type: "int"
+      default: 1
+      required: true
     - variable: "datanode_count"
       label: "ES Datanode Count"
       description: "Set the count of ElasticSearch datanodes to spin up"
@@ -64,6 +70,7 @@ services:
           node.master: "true"
           node.ingest: "false"
           network.host: "_site_"
+          discovery.zen.minimum_master_nodes: "${minimum_master_nodes}"
   elasticsearch-datanodes:
     scale: ${datanode_count}
     metadata:
