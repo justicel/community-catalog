@@ -26,8 +26,7 @@ services:
       elasticsearch.master.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
-#    networks:
-#      - container:elasticsearch-masters
+    network_mode: container:elasticsearch-masters
     volumes_from:
       - elasticsearch-datavolume-masters
     entrypoint:
@@ -42,6 +41,8 @@ services:
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     volumes_from:
       - elasticsearch-datavolume-datanode
+    links:
+      - elasticsearch-masters:es-masters
   elasticsearch-datavolume-datanode:
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -60,14 +61,11 @@ services:
       elasticsearch.datanode.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
-    links:
-      - elasticsearch-base-master:es-masters
     entrypoint:
       - /opt/rancher/bin/run.sh
     volumes_from:
       - elasticsearch-datavolume-datanode
-#    networks:
-#      - container:elasticsearch-datanodes
+    network_mode: container:elasticsearch-datanodes
 
   elasticsearch-clients:
     image: rancher/elasticsearch-conf:v0.5.0
@@ -77,6 +75,8 @@ services:
       io.rancher.sidekicks: elasticsearch-base-clients,elasticsearch-datavolume-clients
     volumes_from:
       - elasticsearch-datavolume-clients
+    links:
+      - elasticsearch-masters:es-masters
   elasticsearch-datavolume-clients:
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -97,10 +97,7 @@ services:
     image: elasticsearch:${es_version}
     volumes_from:
       - elasticsearch-datavolume-clients
-    links:
-      - elasticsearch-base-master:es-masters
-#    networks:
-#      - container:elasticsearch-clients
+    network_mode: container:elasticsearch-clients
     entrypoint:
       - /opt/rancher/bin/run.sh
 
