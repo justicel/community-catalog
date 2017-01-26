@@ -15,7 +15,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - es_masters_data:/usr/share/elasticsearch/data
+      - /usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -51,7 +51,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - es_datanodes_data:/usr/share/elasticsearch/data
+      - /usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -88,7 +88,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - es_clients_data:/usr/share/elasticsearch/data
+      - /usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
