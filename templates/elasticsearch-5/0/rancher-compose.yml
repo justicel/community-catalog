@@ -28,7 +28,7 @@
       default: 80
       required: true
     - variable: "java_memory"
-      label: "Java Heap Size"
+      label: "Java Heap Size (GB)"
       description: "Allows you to set the default heap size for ES Java"
       type: "int"
       default: 2
