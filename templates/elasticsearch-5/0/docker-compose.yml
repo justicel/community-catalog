@@ -22,7 +22,7 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-master:
     environment:
-      ES_JAVA_OPTS: "-Xms${java_memory}g -Xmx${java_memory}g"
+      ES_HEAP_SIZE: "${java_memory}g"
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.master.config.version: '0'
@@ -93,7 +93,7 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-clients:
     environment:
-      ES_JAVA_OPTS: "-Xms${java_memory}g -Xmx${java_memory}g"
+      ES_HEAP_SIZE: "${java_memory}g"
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.client.config.version: '0'
