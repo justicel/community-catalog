@@ -41,7 +41,7 @@ services:
       io.rancher.sidekicks: elasticsearch-base-datanode,elasticsearch-datavolume-datanode
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
     links:
-      - elasticsearch-masters:es-masters
+      - elasticsearch-masters-base:es-masters
     volumes_from:
       - elasticsearch-datavolume-datanode
   elasticsearch-datavolume-datanode:
@@ -63,7 +63,7 @@ services:
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
     links:
-      - elasticsearch-masters:es-masters
+      - elasticsearch-masters-base:es-masters
     entrypoint:
       - /opt/rancher/bin/run.sh
     volumes_from:
@@ -78,7 +78,7 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: elasticsearch-base-clients,elasticsearch-datavolume-clients
     links:
-      - elasticsearch-masters:es-masters
+      - elasticsearch-masters-base:es-masters
     volumes_from:
       - elasticsearch-datavolume-clients
   elasticsearch-datavolume-clients:
