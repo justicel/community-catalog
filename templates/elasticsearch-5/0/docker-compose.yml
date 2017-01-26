@@ -21,6 +21,9 @@ services:
     entrypoint: /bin/true
     image: elasticsearch:${es_version}
   elasticsearch-base-master:
+    privileged: true
+    cap_add:
+      - IPC_LOCK
     environment:
       ES_HEAP_SIZE: "${java_memory}g"
     labels:
@@ -58,6 +61,11 @@ services:
     entrypoint: /bin/true
     image: elasticsearch:${es_version}
   elasticsearch-base-datanode:
+    privileged: true
+    cap_add:
+      - IPC_LOCK
+    environment:
+      ES_HEAP_SIZE: "${java_memory}g"
     labels:
       io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.datanode.config.version: '0'
@@ -92,6 +100,9 @@ services:
     entrypoint: /bin/true
     image: elasticsearch:${es_version}
   elasticsearch-base-clients:
+    privileged: true
+      cap_add:
+        - IPC_LOCK
     environment:
       ES_HEAP_SIZE: "${java_memory}g"
     labels:
