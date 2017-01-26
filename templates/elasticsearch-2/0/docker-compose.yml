@@ -15,7 +15,6 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - /usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -30,6 +29,8 @@ services:
       - container:elasticsearch-masters
     volumes_from:
       - elasticsearch-datavolume-masters
+    volumes:
+      - es_masters_data:/usr/share/elasticsearch/data
     entrypoint:
       - /opt/rancher/bin/run.sh
 
@@ -51,7 +52,6 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - /usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -66,6 +66,8 @@ services:
       - elasticsearch-masters:es-masters
     entrypoint:
       - /opt/rancher/bin/run.sh
+    volumes:
+      - es_datanodes_data:/usr/share/elasticsearch/data
     volumes_from:
       - elasticsearch-datavolume-datanode
     networks:
@@ -88,7 +90,6 @@ services:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
     volumes:
-      - /usr/share/elasticsearch/data
       - /usr/share/elasticsearch/config
       - /opt/rancher/bin
     entrypoint: /bin/true
@@ -99,6 +100,8 @@ services:
       elasticsearch.client.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
+    volumes:
+      - es_clients_data:/usr/share/elasticsearch/data
     volumes_from:
       - elasticsearch-datavolume-clients
     networks:
