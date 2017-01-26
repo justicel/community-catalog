@@ -101,8 +101,8 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-clients:
     privileged: true
-      cap_add:
-        - IPC_LOCK
+    cap_add:
+      - IPC_LOCK
     environment:
       ES_HEAP_SIZE: "${java_memory}g"
     labels:
