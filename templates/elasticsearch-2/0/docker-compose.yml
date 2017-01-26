@@ -3,12 +3,14 @@ services:
   elasticsearch-masters:
     image: rancher/elasticsearch-conf:v0.5.0
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: elasticsearch-base-master,elasticsearch-datavolume-masters
     volumes_from:
       - elasticsearch-datavolume-masters
   elasticsearch-datavolume-masters:
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.datanode.config.version: '0'
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
@@ -20,6 +22,7 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-master:
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.master.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
@@ -33,6 +36,7 @@ services:
   elasticsearch-datanodes:
     image: rancher/elasticsearch-conf:v0.5.0
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: elasticsearch-base-datanode,elasticsearch-datavolume-datanode
       io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
@@ -42,6 +46,7 @@ services:
       - elasticsearch-datavolume-datanode
   elasticsearch-datavolume-datanode:
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.datanode.config.version: '0'
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
@@ -53,6 +58,7 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-datanode:
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.datanode.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
@@ -68,6 +74,7 @@ services:
   elasticsearch-clients:
     image: rancher/elasticsearch-conf:v0.5.0
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: elasticsearch-base-clients,elasticsearch-datavolume-clients
     links:
@@ -76,6 +83,7 @@ services:
       - elasticsearch-datavolume-clients
   elasticsearch-datavolume-clients:
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.datanode.config.version: '0'
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
@@ -87,6 +95,7 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-clients:
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       elasticsearch.client.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
@@ -105,6 +114,7 @@ services:
       KOPF_SERVER_NAME: 'es.dev'
       KOPF_ES_SERVERS: 'es-clients:9200'
     labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
       io.rancher.container.hostname_override: container_name
     links:
       - elasticsearch-clients:es-clients
