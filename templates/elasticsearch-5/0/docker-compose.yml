@@ -25,7 +25,7 @@ services:
       memlock:
         soft: -1
         hard: -1
-    privileged: true
+#    privileged: true
     cap_add:
       - IPC_LOCK
     environment:
@@ -65,7 +65,7 @@ services:
     entrypoint: /bin/true
     image: elasticsearch:${es_version}
   elasticsearch-base-datanode:
-    privileged: true
+#    privileged: true
     ulimits:
       memlock:
         soft: -1
@@ -108,7 +108,7 @@ services:
     entrypoint: /bin/true
     image: elasticsearch:${es_version}
   elasticsearch-base-clients:
-    privileged: true
+#    privileged: true
     ulimits:
       memlock:
         soft: -1
