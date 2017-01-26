@@ -21,6 +21,10 @@ services:
     entrypoint: /bin/true
     image: elasticsearch:${es_version}
   elasticsearch-base-master:
+    ulimits:
+      memlock:
+        soft: 819200000
+        hard: 819200000
     privileged: true
     cap_add:
       - IPC_LOCK
@@ -62,6 +66,10 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-datanode:
     privileged: true
+    ulimits:
+      memlock:
+        soft: 819200000
+        hard: 819200000
     cap_add:
       - IPC_LOCK
     environment:
@@ -101,6 +109,10 @@ services:
     image: elasticsearch:${es_version}
   elasticsearch-base-clients:
     privileged: true
+    ulimits:
+      memlock:
+        soft: 819200000
+        hard: 819200000
     cap_add:
       - IPC_LOCK
     environment:
