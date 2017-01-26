@@ -23,7 +23,8 @@ services:
       elasticsearch.master.config.version: '0'
       io.rancher.container.hostname_override: container_name
     image: elasticsearch:${es_version}
-    net: "container:elasticsearch-masters"
+    networks:
+      - container:elasticsearch-masters
     volumes_from:
       - elasticsearch-datavolume-masters
     entrypoint:
@@ -61,7 +62,8 @@ services:
       - /opt/rancher/bin/run.sh
     volumes_from:
       - elasticsearch-datavolume-datanode
-    net: "container:elasticsearch-datanodes"
+    networks:
+      - container:elasticsearch-datanodes
 
   elasticsearch-clients:
     image: rancher/elasticsearch-conf:v0.5.0
@@ -90,7 +92,8 @@ services:
     image: elasticsearch:${es_version}
     volumes_from:
       - elasticsearch-datavolume-clients
-    net: "container:elasticsearch-clients"
+    networks:
+      - container:elasticsearch-clients
     entrypoint:
       - /opt/rancher/bin/run.sh
 
