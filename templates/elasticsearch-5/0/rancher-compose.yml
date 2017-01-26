@@ -62,6 +62,7 @@ services:
           node.name: "$${HOSTNAME}"
           node.data: "false"
           node.master: "true"
+          node.ingest: "false"
           network.host: "_site_"
   elasticsearch-datanodes:
     scale: ${datanode_count}
@@ -72,6 +73,7 @@ services:
           node.name: "$${HOSTNAME}"
           node.data: "true"
           node.master: "false"
+          node.ingest: "false"
           http.enabled: "false"
           network.host: "_site_"
   elasticsearch-clients:
@@ -83,4 +85,5 @@ services:
          node.name: "$${HOSTNAME}"
          node.data: "false"
          node.master: "false"
+         node.ingest: "true"
          network.host: "_site_"
