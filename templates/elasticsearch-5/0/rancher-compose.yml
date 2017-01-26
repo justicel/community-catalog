@@ -18,7 +18,7 @@
     - variable: storage_size
       description: "Amount of storage in GB to use on data nodes for persistent storage."
       label: "Storage Size"
-      type: "string"
+      type: "int"
       required: true
       default: "30"
     - variable: "kopf_port"
@@ -33,9 +33,28 @@
       type: "int"
       default: 2
       required: true
+    - variable: "master_count"
+      label: "ES Master Count"
+      description: "Set the count of ElasticSearch masters to spin up"
+      type: "int"
+      default: 1
+      required: true
+    - variable: "datanode_count"
+      label: "ES Datanode Count"
+      description: "Set the count of ElasticSearch datanodes to spin up"
+      type: "int"
+      default: 1
+      required: true
+    - variable: "client_count"
+      label: "ES Client Count"
+      description: "Set the count of ElasticSearch clients to spin up"
+      type: "int"
+      default: 1
+      required: true
 version: '2'
 services:
   elasticsearch-masters:
+    scale: ${master_count}
     metadata:
       elasticsearch:
         yml:
@@ -45,6 +64,7 @@ services:
           node.master: "true"
           network.host: "_site_"
   elasticsearch-datanodes:
+    scale: ${datanode_count}
     metadata:
       elasticsearch:
         yml:
@@ -55,6 +75,7 @@ services:
           http.enabled: "false"
           network.host: "_site_"
   elasticsearch-clients:
+    scale: ${client_count}
     metadata:
       elasticsearch:
         yml:
